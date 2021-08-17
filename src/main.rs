@@ -10,11 +10,17 @@ fn main() {
         io::stdin()
             .read_line(&mut guess)
             .expect("Please give a string");
-        println!("Secret number is {} ", random_number);
-        let guess: u32 = guess.trim().parse().expect("Please type a number!");
+        // println!("Secret number is {} ", random_number);
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Please enter only numbers !!!\n\n\n\n");
+                continue;
+            }
+        };
         match guess.cmp(&random_number) {
             Ordering::Equal => {
-                println!("You win!!");
+                println!("You win!!\n");
                 break;
             }
             Ordering::Less => println!("Too small!!"),
